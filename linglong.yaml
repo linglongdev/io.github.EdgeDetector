@@ -1,0 +1,27 @@
+version: "1"
+
+package:
+  id: io.github.EdgeDetector
+  name: EdgeDetector
+  version: 1.0.0.1
+  kind: app
+  description: |
+    Demonstration of working implementations of the Canny, Sobel, and Roberts cross edge detection algorithms.
+
+command:
+  - /opt/apps/io.github.EdgeDetector/files/bin/EdgeDetector
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/EdgeDetector.git
+    version: master
+    commit: 17c0cb00e55a8db45f4408dcc38698fd906ed2b3
+
+build: |
+  cd /project/linglong/sources/EdgeDetector.git
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
